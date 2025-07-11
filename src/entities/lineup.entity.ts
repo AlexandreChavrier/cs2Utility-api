@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeUpdate, BeforeInsert, ManyToOne, JoinColumn } from 'typeorm';
 import { Map } from './map.entity';
 import { Utility } from './utility.entity';
-import { User } from './user.entity';
+import { User } from '../user/entities/user.entity';
 import { LINEUP_PRECISION } from 'src/enums/game/lineupPrecision.enum';
 import { SIDE } from 'src/enums/game/side.enum';
 
