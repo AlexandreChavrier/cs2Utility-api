@@ -1,7 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeUpdate, BeforeInsert } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { ROLE } from 'src/enums/user/role.enum';
-
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
@@ -28,7 +27,7 @@ export class User {
   // A voir pour l'enum role et la hiérarchie
   @Column({ type: 'enum', enum: ROLE, default: ROLE.ROLE_USER })
   role: ROLE;
-
+  
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword() {
@@ -38,3 +37,8 @@ export class User {
     }
   }
 }
+
+
+
+
+

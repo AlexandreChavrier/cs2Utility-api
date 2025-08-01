@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Map } from './map.entity';
 import { ActionType } from './action_type.entity';
-import { User } from '../user/entities/user.entity';
+import { User } from './user.entity';
 import { SIDE } from 'src/enums/game/side.enum';
 
 @Entity('actions')
