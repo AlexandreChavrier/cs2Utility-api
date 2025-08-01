@@ -1,4 +1,4 @@
-import { UTILITY_TYPE } from 'src/enums/game/utilityType.enum';
+import { UTILITY_TYPE } from 'src/app/enums/game/utilityType.enum';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('action_types')

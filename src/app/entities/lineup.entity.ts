@@ -2,8 +2,8 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { Map } from './map.entity';
 import { Utility } from './utility.entity';
 import { User } from './user.entity';
-import { LINEUP_PRECISION } from 'src/enums/game/lineupPrecision.enum';
-import { SIDE } from 'src/enums/game/side.enum';
+import { LINEUP_PRECISION } from 'src/app/enums/game/lineupPrecision.enum';
+import { SIDE } from 'src/app/enums/game/side.enum';
 
 
 @Entity('lineups')

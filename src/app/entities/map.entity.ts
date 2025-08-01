@@ -1,4 +1,4 @@
-import { MAP } from 'src/enums/game/map.enum';
+import { MAP } from 'src/app/enums/game/map.enum';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity("maps")

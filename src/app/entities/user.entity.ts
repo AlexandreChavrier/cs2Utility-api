@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeUpdate, BeforeInsert } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { ROLE } from 'src/enums/user/role.enum';
+import { ROLE } from 'src/app/enums/user/role.enum';
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()

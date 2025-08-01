@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, Jo
 import { Map } from './map.entity';
 import { ActionType } from './action_type.entity';
 import { User } from './user.entity';
-import { SIDE } from 'src/enums/game/side.enum';
+import { SIDE } from 'src/app/enums/game/side.enum';
 
 @Entity('actions')
 export class Action {
