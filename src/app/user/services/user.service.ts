@@ -6,8 +6,8 @@ import * as bcrypt from 'bcrypt';
 import { ROLE } from 'src/app/enums/user/role.enum';
 
 export type UserData = {
-    userFirstname: string;
-    userLastname: string;
+    user_firstname: string;
+    user_lastname: string;
     email: string;
     password: string;
     role?: ROLE;
@@ -15,7 +15,7 @@ export type UserData = {
 
 
 @Injectable()
-export class UsersService {
+export class UserService {
     constructor(
         @InjectRepository(User)
         private userRepository: Repository<User>,

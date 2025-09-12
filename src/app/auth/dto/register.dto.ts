@@ -3,10 +3,10 @@ import { ROLE } from "src/app/enums/user/role.enum";
 
 export class RegisterDto {
 @IsNotEmpty()
-userFirstname: string;
+user_firstname: string;
 
 @IsNotEmpty()
-userLastname: string;
+user_lastname: string;
 
 @IsEmail()
 email: string;
