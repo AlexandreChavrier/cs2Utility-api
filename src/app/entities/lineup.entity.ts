@@ -8,8 +8,8 @@ import { SIDE } from 'src/app/enums/game/side.enum';
 
 @Entity('lineups')
 export class Lineup {
-  @PrimaryGeneratedColumn()
-  lineup_id: number;
+  @PrimaryGeneratedColumn('uuid')
+  uuid: string;
 
   @Column({ type: 'varchar', length: 255 })
   title: string;
@@ -50,6 +50,6 @@ export class Lineup {
   @JoinColumn({ name: 'created_by_admin_id' })
   createdByAdmin: User;
 
-  @Column()
-  created_by_admin_id: number;
+  @Column('uuid')
+  created_by_admin_id: string;
 }

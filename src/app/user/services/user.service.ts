@@ -11,39 +11,67 @@ export type UserData = {
     email: string;
     password: string;
     role?: ROLE;
-} 
-
+}
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectRepository(User)
         private userRepository: Repository<User>,
-    ) {}
+    ) { }
 
-    async findByEmail({email}: {
+    async findByEmail({ email }: {
         email: string
-    }): Promise<User | null> {
-        return this.userRepository.findOne({ where: { email } });
+    }) {
+        const userQuery = this.userRepository
+            .createQueryBuilder('u')
+            .where('u.email = :email', { email });
+
+        const user = await userQuery.getOne();
+
+      return user;
     }
 
-    async findById({ user_id }: {
-        user_id: number;
-    }): Promise<User | null> {
-        return this.userRepository.findOne({ where: { user_id } })
+    async findById({ userUuid }: {
+        userUuid: string;
+    }) {
+        const userQuery = this.userRepository
+            .createQueryBuilder('u')
+            .where('u.uuid = :userUuid', { userUuid });
+
+        const user = await userQuery.getOne();
+
+        return user;
     }
 
     async create({ userData }: {
         userData: UserData;
     }): Promise<User> {
-        const user = this.userRepository.create(userData);
+        const user = this.userRepository.create(userData); // créer le user comme ce que je fais actuellementr avec le DPCustom + comprendre la différence entre la méthode create ici d'un register 
         return this.userRepository.save(user);
     }
 
-    async validatePassword({ plainPassword, hashedPassword}: {
+    async validatePassword({ plainPassword, hashedPassword }: {
         plainPassword: string;
         hashedPassword: string;
     }): Promise<Boolean> {
         return bcrypt.compare(plainPassword, hashedPassword);
+    }
+
+    async updateRefreshToken({ uuid, refreshTokenHash }: {
+        uuid: string,
+        refreshTokenHash: string,   
+    }) {
+        await this.userRepository.update(uuid, {
+            refresh_token_hash: refreshTokenHash
+        });
+    }
+
+    async updateLastLogin({ userId }: {
+        userId: string
+    }) {
+        await this.userRepository.update(userId, {
+            last_login_at: new Date()
+        })
     }
 }

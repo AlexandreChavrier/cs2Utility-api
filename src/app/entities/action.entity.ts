@@ -6,8 +6,8 @@ import { SIDE } from 'src/app/enums/game/side.enum';
 
 @Entity('actions')
 export class Action {
-  @PrimaryGeneratedColumn()
-  action_id: number;
+  @PrimaryGeneratedColumn('uuid')
+  uuid: string;
 
   @Column({ type: 'varchar', length: 255 })
   title: string;
@@ -29,23 +29,23 @@ export class Action {
 
   @ManyToOne(() => Map, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'map_id' })
-  map: Map
+  map: Map;
 
-  @Column()
-  map_id: number
+  @Column('uuid')
+  map_uuid: string;
 
   @ManyToOne(() => ActionType, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'action_type_id' })
   actionType: ActionType;
 
   @Column()
-  action_type_id: number;
+  action_type_uuid: number;
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'created_by_admin_id' })
   createdByAdmin: User;
 
-  @Column()
-  created_by_admin_id: number;
+  @Column('uuid')
+  created_by_admin_uuid: string;
 
 }
