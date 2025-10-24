@@ -3,11 +3,7 @@ import { Injectable, UnauthorizedException, UseInterceptors } from '@nestjs/comm
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../../user/services/user.service';
 import { User } from '../../entities/user.entity';
-import { ROLE } from 'src/app/enums/user/role.enum';
 import { ConfigService } from '@nestjs/config';
-import { AuthResponseDtoOut } from '../dto/out/authResponseDtoOut';
-import { toUserProfileDto } from '../dto/out/userProfileDtoOut';
-import { timeStamp } from 'console';
 
 @Injectable()
 export class AuthService {
@@ -30,11 +26,11 @@ export class AuthService {
   }
 
   async generateTokens(userId: string) {
-    const payload = { sub: userId }; 
+    const payload = { sub: userId };
 
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(payload, {
-        expiresIn: this.configService.get<string>('JWT_ACCESS_EXPIRATION', '15m'),
+        expiresIn: this.configService.get<string>('JWT_ACCESS_EXPIRATION'),
         secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
       }),
       this.jwtService.signAsync(payload, {
@@ -53,5 +49,37 @@ export class AuthService {
       expiresIn: 15 * 60,
       tokenType: 'Bearer',
     };
+  }
+
+  async refreshTokens({ userId, refreshToken }: {
+    userId: string,
+    refreshToken: string,
+  }) {
+    const user = await this.userService.findById({ userUuid: userId });
+
+    if (!user || !user.refresh_token_hash) {
+      throw new UnauthorizedException('Unknown user or invalid token');
+    }
+
+    const compareTokens = await bcrypt.compare(refreshToken, user.refresh_token_hash);
+
+    if (!compareTokens) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    const tokens = await this.generateTokens(userId);
+    return tokens;
+  }
+
+  async verifyToken(token: string) {
+    try {
+      const payload = await this.jwtService.verifyAsync(token, {
+        secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+      });
+
+      return payload;
+    } catch (error){
+      throw new UnauthorizedException('Invalid or expired token');
+    }
   }
 }

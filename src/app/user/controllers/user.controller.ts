@@ -12,6 +12,7 @@ import { ConfigService } from '@nestjs/config';
 export interface ReqWithUser extends Request {
   user: {
     userId: string,
+    fullName: string,
     email: string,
     role: ROLE
   }
@@ -27,10 +28,12 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   async getMyProfile(
     @Req()
-    req: any
+    req: ReqWithUser
   ): Promise<UserProfileDtoOut> {
     const currentUserId = req.user?.userId;
-    console.log(currentUserId)
+        const currentUser = req.user?.fullName;
+
+    console.log(currentUser)
     if (!currentUserId) {
       throw new UnauthorizedException('Unknown user');
     }
@@ -44,21 +47,5 @@ export class UserController {
     return toUserProfileDto(user)
   }
 
-  // @Post('register')
-  // async register(
-  //   @Body(zodToNest(registerDtoInSchema))
-  //   registerDto: RegisterDtoIn,
-  // ): Promise<AuthResponseDtoOut> {
-  //   const userRegistered = await this.authService.register({ ...registerDto });
-  //   return userRegistered;
-  // }
 
-  // @Post('login')
-  // async login(
-  //   @Body(zodToNest(loginDtoInSchema))
-  //   loginDto: LoginDtoIn,
-  // ): Promise<AuthResponseDtoOut> {
-  //   const userLogedIn = await this.authService.login({ ...loginDto });
-  //   return userLogedIn;
-  // }
 }
