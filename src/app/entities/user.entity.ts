@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeUpdate, BeforeInsert } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BeforeUpdate,
+  BeforeInsert,
+} from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { ROLE } from 'src/app/enums/user/role.enum';
 import { Exclude, Expose } from 'class-transformer';
@@ -58,7 +66,10 @@ export class User {
   @BeforeUpdate()
   cleanupExpiredTokens() {
     // Nettoyer le token de reset si expiré
-    if (this.reset_password_token_expiry && this.reset_password_token_expiry < new Date()) {
+    if (
+      this.reset_password_token_expiry &&
+      this.reset_password_token_expiry < new Date()
+    ) {
       this.reset_password_token = null;
       this.reset_password_token_expiry = null;
     }
@@ -68,15 +79,9 @@ export class User {
     //   this.email_verification_token_expiry = null;
     // }
   }
-
   // ===== MÉTHODES UTILITAIRES =====
-  
+
   async comparePassword(plainPassword: string): Promise<boolean> {
     return bcrypt.compare(plainPassword, this.password);
   }
 }
-
-
-
-
-

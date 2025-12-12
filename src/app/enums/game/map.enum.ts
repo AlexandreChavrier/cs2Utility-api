@@ -3,7 +3,7 @@ export enum MAP {
   INFERNO = 'Inferno',
   ANCIENT = 'Ancient',
   NUKE = 'Nuke',
-  DUST2 = 'Dust 2',
+  DUST2 = 'Dust2',
   TRAIN = 'Train',
-  ANUBIS = 'Anubis'
+  ANUBIS = 'Anubis',
 }

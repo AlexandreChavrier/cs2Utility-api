@@ -1,55 +1,92 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeUpdate, BeforeInsert, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  Index,
+  JoinColumn,
+} from 'typeorm';
 import { Map } from './map.entity';
-import { Utility } from './utility.entity';
-import { User } from './user.entity';
-import { LINEUP_PRECISION } from 'src/app/enums/game/lineupPrecision.enum';
-import { SIDE } from 'src/app/enums/game/side.enum';
-
+import { DestinationPoint } from './destinationPoint.entity';
+import { UtilityType } from './utilityType.entity';
+import { SIDE } from '../enums/game/side.enum';
 
 @Entity('lineups')
 export class Lineup {
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+  id: string;
 
   @Column({ type: 'varchar', length: 255 })
   title: string;
 
-  @Column({ type: 'text' })
-  description: string;
+  // FK explicites (sans @JoinColumn ici)
+  @Column({ name: 'map_id' })
+  @Index()
+  mapId: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
-  lineup_video: string;
+  @Column({ name: 'destination_point_id' })
+  @Index()
+  destinationPointId: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
-  lineup_image: string;
+  @Column({ name: 'utility_type_id' })
+  @Index()
+  utilityTypeId: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+  // Coordonnées du point de DÉPART
+  @Column({ name: 'throw_from_x', type: 'decimal', precision: 5, scale: 2 })
+  throwFromX: number;
 
-  @Column({ type: 'enum', enum: LINEUP_PRECISION })
-  precision: LINEUP_PRECISION;
+  @Column({ name: 'throw_from_y', type: 'decimal', precision: 5, scale: 2 })
+  throwFromY: number;
 
-  @Column({ type: 'enum', enum: SIDE })
+  // Métadonnées
+  @Column({ type: 'enum', enum: SIDE, default: SIDE.BOTH })
+  @Index()
   side: SIDE;
 
-  @ManyToOne(() => Map, { onDelete: 'CASCADE' })
+  // Média
+  @Column({ name: 'image_url' })
+  imageUrl: string;
+
+  @Column({ name: 'thumbnail_url', nullable: true })
+  thumbnailUrl?: string;
+
+  @Column({ name: 'video_url', nullable: true })
+  videoUrl?: string;
+
+  @Column({ type: 'text' })
+  instructions: string;
+
+  // Social
+  @Column({ name: 'created_by', nullable: true })
+  createdBy?: string;
+
+  @Column({ default: 0 })
+  votes: number;
+
+  @Column({ default: 0 })
+  views: number;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
+
+  // Relations (SANS @JoinColumn car déjà déclaré au-dessus)
+  @ManyToOne(() => Map, (map) => map.lineups, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'map_id' })
   map: Map;
 
-  @Column()
-  map_id: number;
+  @ManyToOne(() => DestinationPoint, (dp) => dp.lineups, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'destination_point_id' })
+  destinationPoint: DestinationPoint;
 
-  @ManyToOne(() => Utility, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'utility_id' })
-  utility: Utility;
-
-  @Column()
-  utility_id: number;
-
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'created_by_admin_id' })
-  createdByAdmin: User;
-
-  @Column('uuid')
-  created_by_admin_id: string;
+  @ManyToOne(() => UtilityType, (ut) => ut.lineups, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'utility_type_id' })
+  utilityType: UtilityType;
 }
