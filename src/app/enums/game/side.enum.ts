@@ -1,5 +1,5 @@
 export enum SIDE {
-  ATTACK = "T",
-  DEFENSE = "CT",
-  BOTH = "Any"
+  T = 't',
+  CT = 'ct',
+  ANY = 'Any',
 }

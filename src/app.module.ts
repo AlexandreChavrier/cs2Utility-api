@@ -4,6 +4,10 @@ import { getDatabaseConfig } from './config/database.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './app/user/user.module';
 import { AuthModule } from './app/auth/auth.module';
+import { LineupModule } from './app/lineup/lineup.module';
+import { MapModule } from './app/map/map.module';
+import { ActionModule } from './app/action/actions.module';
+import { ActionTypeModule } from './app/action-type/actionsType.module';
 
 @Module({
   imports: [
@@ -17,9 +21,13 @@ import { AuthModule } from './app/auth/auth.module';
       inject: [ConfigService],
     }),
     AuthModule,
-    UserModule
+    UserModule,
+    LineupModule,
+    MapModule,
+    ActionModule,
+    ActionTypeModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

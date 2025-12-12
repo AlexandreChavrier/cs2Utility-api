@@ -1,5 +1,6 @@
 export enum ACTION_TYPE {
-  BOOST = "Boost",
-  WALLBANG = "Wallbang",
-  SURF = "Surf",
+  BOOST = 'boost',
+  WALLBANG = 'wallbang',
+  PREFIRE_LINES = 'prefire',
+  BOMB_SAFE_PLANT = 'bomb-plant',
 }

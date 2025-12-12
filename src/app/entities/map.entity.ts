@@ -1,12 +1,12 @@
 // src/entities/Map.ts
 import {
   Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
   Index,
+  PrimaryColumn,
 } from 'typeorm';
 import { DestinationPoint } from './destinationPoint.entity';
 import { Lineup } from './lineup.entity';
@@ -14,12 +14,12 @@ import { Action } from './action.entity';
 
 @Entity('maps')
 export class Map {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn()
   id: string;
 
   @Column({ unique: true })
   @Index()
-  name: string;
+  displayName: string;
 
   @Column({ name: 'image_url' })
   imageUrl: string;

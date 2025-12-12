@@ -9,18 +9,22 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
 
   // Configuration du préfixe global
-  app.setGlobalPrefix('api');
 
   // Configuration des pipes globaux
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    forbidNonWhitelisted: true,
-    transform: true,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
 
   app.use(cookieParser());
 
-  const allowedOrigins = configService.get<string>('ALLOWED_ORIGINS', 'http://localhost:3000');
+  const allowedOrigins = configService.get<string>(
+    'ALLOWED_ORIGINS',
+    'http://localhost:3000',
+  );
   // Configuration CORS
   app.enableCors({
     origin: allowedOrigins.split(','),
@@ -33,6 +37,6 @@ async function bootstrap() {
   await app.listen(port);
 
   console.log(`🚀 Application running on: http://localhost:${port}`);
-  console.log(`🔧 API endpoints: http://localhost:${port}/api`);
+  console.log(`🔧 API endpoints: http://localhost:${port}/`);
 }
 bootstrap();

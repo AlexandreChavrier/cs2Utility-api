@@ -13,10 +13,16 @@ import { DestinationPoint } from './destinationPoint.entity';
 import { UtilityType } from './utilityType.entity';
 import { SIDE } from '../enums/game/side.enum';
 
+type IntermediatePoint = {
+  x: number;
+  y: number;
+  order: number;
+};
+
 @Entity('lineups')
 export class Lineup {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  uuid: string;
 
   @Column({ type: 'varchar', length: 255 })
   title: string;
@@ -41,8 +47,14 @@ export class Lineup {
   @Column({ name: 'throw_from_y', type: 'decimal', precision: 5, scale: 2 })
   throwFromY: number;
 
+  @Column({ name: 'intermediate_points', type: 'jsonb', nullable: true })
+  intermediatePoints?: IntermediatePoint[];
+
+  @Column({ name: 'icon_url', nullable: true })
+  iconUrl: string;
+
   // Métadonnées
-  @Column({ type: 'enum', enum: SIDE, default: SIDE.BOTH })
+  @Column({ type: 'enum', enum: SIDE, default: SIDE.ANY })
   @Index()
   side: SIDE;
 
@@ -75,7 +87,6 @@ export class Lineup {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  // Relations (SANS @JoinColumn car déjà déclaré au-dessus)
   @ManyToOne(() => Map, (map) => map.lineups, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'map_id' })
   map: Map;

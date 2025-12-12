@@ -11,14 +11,17 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private userService: UserService,
   ) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (request) => {
+          return request?.cookies?.access_token;
+        },
+      ]),
       ignoreExpiration: false,
       secretOrKey: configService.getOrThrow<string>('JWT_ACCESS_SECRET'),
     });
   }
 
   async validate(payload: any) {
-
     const user = await this.userService.findById({ userUuid: payload.sub });
     if (!user) {
       throw new UnauthorizedException();
@@ -28,6 +31,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       fullName: `${user.user_firstname} ${user.user_lastname}`,
       email: user.email,
       role: user.role,
-    }
+    };
   }
 }
