@@ -10,6 +10,6 @@ export const getDatabaseConfig = (configService: ConfigService): TypeOrmModuleOp
   database: configService.get<string>('DB_DATABASE'),
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   synchronize: false,
-  logging: configService.get<string>('NODE_ENV') === 'development',
+  logging: ['error'],
   autoLoadEntities: true,
 });

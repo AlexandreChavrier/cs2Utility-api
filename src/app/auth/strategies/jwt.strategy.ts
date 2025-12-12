@@ -15,7 +15,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       ignoreExpiration: false,
       secretOrKey: configService.getOrThrow<string>('JWT_ACCESS_SECRET'),
     });
-    console.log('✅ JwtStrategy constructor END');
   }
 
   async validate(payload: any) {
