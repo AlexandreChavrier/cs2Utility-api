@@ -16,7 +16,7 @@ import { SIDE } from '../enums/game/side.enum';
 @Entity('lineups')
 export class Lineup {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  uuid: string;
 
   @Column({ type: 'varchar', length: 255 })
   title: string;

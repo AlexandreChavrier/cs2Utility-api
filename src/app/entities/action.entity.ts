@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { Map } from './map.entity';
 import { ActionType } from './actionType.entity';
-import { SIDE } from 'src/app/enums/game/side.enum';
+import { SIDE } from '../enums/game/side.enum';
 import { DestinationPoint } from './destinationPoint.entity';
 
 @Entity('actions')

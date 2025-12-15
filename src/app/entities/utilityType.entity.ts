@@ -6,12 +6,13 @@ import {
   UpdateDateColumn,
   OneToMany,
   Index,
+  PrimaryColumn,
 } from 'typeorm';
 import { Lineup } from './lineup.entity';
 
 @Entity('utility_types')
 export class UtilityType {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn()
   id: string;
 
   @Column({ unique: true })

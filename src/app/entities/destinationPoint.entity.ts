@@ -16,7 +16,7 @@ import { Lineup } from './lineup.entity';
 @Entity('destination_points')
 export class DestinationPoint {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  uuid: string;
 
   // FK explicites (sans @JoinColumn ici)
   @Column({ name: 'map_id' })

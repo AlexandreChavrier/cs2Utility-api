@@ -7,12 +7,13 @@ import {
   UpdateDateColumn,
   OneToMany,
   Index,
+  PrimaryColumn,
 } from 'typeorm';
 import { Action } from './action.entity';
 
 @Entity('action_types')
 export class ActionType {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn()
   id: string;
 
   @Column({ unique: true })
