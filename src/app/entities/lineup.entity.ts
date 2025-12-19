@@ -75,7 +75,6 @@ export class Lineup {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  // Relations (SANS @JoinColumn car déjà déclaré au-dessus)
   @ManyToOne(() => Map, (map) => map.lineups, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'map_id' })
   map: Map;

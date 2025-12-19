@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 import { AppDataSource } from '../data-source'; // Ton DataSource
 import { seedTestLineup } from './tests-lineups.seed';
 import { seedMaps } from './maps-seed';
+import { seedActionTypes } from './actions-type-seed';
 
 async function runSeed() {
   try {
@@ -10,7 +11,7 @@ async function runSeed() {
     console.log('📦 Connexion DB établie');
 
     // Exécute le seed
-    await seedMaps(AppDataSource);
+    await seedActionTypes(AppDataSource);
 
     // Ferme la connexion
     await AppDataSource.destroy();

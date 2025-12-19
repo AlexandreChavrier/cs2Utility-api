@@ -85,4 +85,8 @@ export class Action {
   })
   @JoinColumn({ name: 'destination_point_id' })
   destinationPoint: DestinationPoint;
+
+  @ManyToOne(() => ActionType, (a) => a.actions, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'action_type_id' })
+  actionType: ActionType;
 }

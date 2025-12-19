@@ -5,7 +5,7 @@ import { Lineup } from 'src/app/entities/lineup.entity';
 import { UTILITY_TYPE } from 'src/app/enums/game/utilityType.enum';
 
 @Injectable()
-export class LineupsService {
+export class LineupService {
   constructor(
     @InjectRepository(Lineup)
     private lineupRepository: Repository<Lineup>,

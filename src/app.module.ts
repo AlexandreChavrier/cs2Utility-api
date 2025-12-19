@@ -6,6 +6,8 @@ import { UserModule } from './app/user/user.module';
 import { AuthModule } from './app/auth/auth.module';
 import { LineupModule } from './app/lineup/lineup.module';
 import { MapModule } from './app/map/map.module';
+import { ActionModule } from './app/action/actions.module';
+import { ActionTypeModule } from './app/action-type/actionsType.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { MapModule } from './app/map/map.module';
     UserModule,
     LineupModule,
     MapModule,
+    ActionModule,
+    ActionTypeModule,
   ],
   controllers: [],
   providers: [],

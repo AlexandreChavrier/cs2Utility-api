@@ -16,7 +16,7 @@ import { JwtService } from '@nestjs/jwt';
 
 import { zodToNest } from 'src/lib/zod/ZodPipe';
 
-import { LineupsService } from '../services/lineups.service';
+import { LineupService } from '../services/lineups.service';
 import {
   GetLineupsDtoIn,
   getLineupsDtoSchema,
@@ -25,7 +25,7 @@ import { LineupListDto, toLineupsDto } from '../dto/dtoOut/LineupsDto';
 
 @Controller('lineups')
 export class LineupController {
-  constructor(private lineupsService: LineupsService) {}
+  constructor(private lineupsService: LineupService) {}
 
   @Get('')
   async getLineups(

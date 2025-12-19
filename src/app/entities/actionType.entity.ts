@@ -29,7 +29,7 @@ export class ActionType {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  // // Relations
-  // @OneToMany(() => Action, (action) => action.actionType)
-  // actions: Action[];
+  // Relations
+  @OneToMany(() => Action, (action) => action.actionType)
+  actions: Action[];
 }
