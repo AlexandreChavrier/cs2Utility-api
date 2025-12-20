@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { AppDataSource } from '../data-source'; // Ton DataSource
-import { seedTestLineup } from './tests-lineups.seed';
+import { seedTestLineup } from './lineups-seed.ts';
 import { seedMaps } from './maps-seed';
 import { seedActionTypes } from './actions-type-seed';
 
