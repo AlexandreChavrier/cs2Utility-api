@@ -1,8 +1,6 @@
 import { DataSource } from 'typeorm';
 import { AppDataSource } from '../data-source'; // Ton DataSource
-import { seedTestLineup } from './lineups-seed.ts';
-import { seedMaps } from './maps-seed';
-import { seedActionTypes } from './actions-type-seed';
+import { seedDust2CtSmokeDestinations } from './ct-smokes-dust2-seed';
 
 async function runSeed() {
   try {
@@ -11,7 +9,7 @@ async function runSeed() {
     console.log('📦 Connexion DB établie');
 
     // Exécute le seed
-    await seedActionTypes(AppDataSource);
+    await seedDust2CtSmokeDestinations(AppDataSource);
 
     // Ferme la connexion
     await AppDataSource.destroy();

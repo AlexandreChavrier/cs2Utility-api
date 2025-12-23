@@ -5,7 +5,7 @@ import { DestinationPoint } from '../../app/entities/destinationPoint.entity';
 import { Lineup } from '../../app/entities/lineup.entity';
 import { SIDE } from '../../app/enums/game/side.enum';
 
-export async function seedDust2SmokeDestinations(dataSource: DataSource) {
+export async function seedDust2CtSmokeDestinations(dataSource: DataSource) {
   const mapRepo = dataSource.getRepository(Map);
   const utilityTypeRepo = dataSource.getRepository(UtilityType);
   const destinationPointRepo = dataSource.getRepository(DestinationPoint);
@@ -28,52 +28,44 @@ export async function seedDust2SmokeDestinations(dataSource: DataSource) {
   // 3. Définir tous les destination points avec leurs lineups
   const destinationsWithLineups = [
     {
-      x: 46.3,
-      y: 35.13,
-      label: 'Mid Doors',
-      throwFromX: 30,
-      throwFromY: 85,
-      title: 'Mid Doors smoke',
+      x: 63.96,
+      y: 55.46,
+      label: 'Long Doors',
+      throwFromX: 0,
+      throwFromY: 0,
+      title: 'Long Doors smoke',
     },
     {
-      x: 31.22,
-      y: 22.19,
-      label: 'B Doors',
+      x: 77.4,
+      y: 39.82,
+      label: 'Long Block',
       throwFromX: 25,
       throwFromY: 80,
-      title: 'B Doors smoke',
+      title: 'Long Block smoke',
     },
     {
-      x: 31.22,
-      y: 11.8,
-      label: 'B Window',
+      x: 45.94,
+      y: 68.12,
+      label: 'Suicide',
       throwFromX: 28,
       throwFromY: 82,
-      title: 'B Window smoke',
+      title: 'Suicide smoke',
     },
     {
-      x: 74.74,
-      y: 45.08,
-      label: 'A Long',
+      x: 20.13,
+      y: 40.25,
+      label: 'B Tunnel',
       throwFromX: 35,
       throwFromY: 88,
-      title: 'A Long smoke',
+      title: 'B Tunnel smoke',
     },
     {
-      x: 61.72,
-      y: 22.9,
-      label: 'Short Cross',
+      x: 51.91,
+      y: 63.14,
+      label: 'Top Mid',
       throwFromX: 32,
       throwFromY: 85,
-      title: 'Short Cross smoke',
-    },
-    {
-      x: 63.86,
-      y: 23.04,
-      label: 'CT Spawn',
-      throwFromX: 30,
-      throwFromY: 87,
-      title: 'CT Spawn smoke',
+      title: 'Top Mid smoke',
     },
   ];
 
@@ -97,7 +89,7 @@ export async function seedDust2SmokeDestinations(dataSource: DataSource) {
         x: data.x,
         y: data.y,
         label: data.label,
-        iconUrl: '/assets/utilityIcons/smokeBadge.webp',
+        iconUrl: '/assets/utilityIcons/smoke/ctBadge.webp',
       });
       console.log(
         `✅ DestinationPoint créé: ${data.label} (${data.x}, ${data.y})`,
@@ -124,7 +116,7 @@ export async function seedDust2SmokeDestinations(dataSource: DataSource) {
         utilityTypeId: smokeType.id,
         throwFromX: data.throwFromX,
         throwFromY: data.throwFromY,
-        side: SIDE.T,
+        side: SIDE.CT,
         imageUrl: '',
         thumbnailUrl: '',
         videoUrl: '',
