@@ -1,5 +1,5 @@
 export enum SIDE {
-  T = 'T',
-  CT = 'CT',
-  BOTH = 'Any',
+  T = 't',
+  CT = 'ct',
+  ANY = 'Any',
 }

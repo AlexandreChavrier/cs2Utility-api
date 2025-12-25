@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { AppDataSource } from '../data-source'; // Ton DataSource
-import { seedDust2CtSmokeDestinations } from './ct-smokes-dust2-seed';
+import { seedDust2BoostActions } from './boosts-seed-dust2';
 
 async function runSeed() {
   try {
@@ -9,7 +9,7 @@ async function runSeed() {
     console.log('📦 Connexion DB établie');
 
     // Exécute le seed
-    await seedDust2CtSmokeDestinations(AppDataSource);
+    await seedDust2BoostActions(AppDataSource);
 
     // Ferme la connexion
     await AppDataSource.destroy();

@@ -31,7 +31,7 @@ export class ActionController {
   ): Promise<ActionListDto> {
     const actions = await this.actionService.findActionsByMapAndUtilities({
       mapId: query.map,
-      actionTypeId: query.actionType,
+      actionTypeIds: query.actionTypes,
     });
 
     return actions.map(toActionsDto);

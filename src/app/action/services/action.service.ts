@@ -28,19 +28,19 @@ export class ActionService {
 
   async findActionsByMapAndUtilities({
     mapId,
-    actionTypeId,
+    actionTypeIds,
   }: {
     mapId: string;
-    actionTypeId: ACTION_TYPE;
+    actionTypeIds: ACTION_TYPE[];
   }): Promise<Action[]> {
     const actionsQuery = this.actionRepository
       .createQueryBuilder('a')
       .leftJoinAndSelect('a.destinationPoint', 'destinationPoint')
       .leftJoinAndSelect('a.map', 'map')
       .leftJoinAndSelect('a.actionType', 'actionType')
-      .where('l.mapId = :mapId', { mapId: mapId })
-      .andWhere('l.actionTypeId = :actionTypeId', {
-        actionTypeId: actionTypeId,
+      .where('a.mapId = :mapId', { mapId: mapId })
+      .andWhere('a.actionTypeId IN (:...actionTypeIds)', {
+        actionTypeIds,
       });
 
     const actions = await actionsQuery.getMany();

@@ -3,7 +3,15 @@ import { z } from 'zod';
 
 export const getActionsDtoSchema = z.object({
   map: z.string(),
-  actionType: z.enum(ACTION_TYPE),
+  actionTypes: z
+    .union([z.string(), z.array(z.string())])
+    .transform((val) => {
+      if (typeof val === 'string') {
+        return [val];
+      }
+      return val;
+    })
+    .pipe(z.array(z.enum(ACTION_TYPE))),
 });
 
 export type GetActionsDtoIn = z.infer<typeof getActionsDtoSchema>;

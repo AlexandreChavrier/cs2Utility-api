@@ -42,7 +42,7 @@ export class Lineup {
   throwFromY: number;
 
   // Métadonnées
-  @Column({ type: 'enum', enum: SIDE, default: SIDE.BOTH })
+  @Column({ type: 'enum', enum: SIDE, default: SIDE.ANY })
   @Index()
   side: SIDE;
 

@@ -35,14 +35,14 @@ export class Action {
   actionTypeId: string;
 
   // Coordonnées du point de DÉPART
-  @Column({ name: 'throw_from_x', type: 'decimal', precision: 5, scale: 2 })
+  @Column({ name: 'from_x', type: 'decimal', precision: 5, scale: 2 })
   fromX: number;
 
-  @Column({ name: 'throw_from_y', type: 'decimal', precision: 5, scale: 2 })
+  @Column({ name: 'from_y', type: 'decimal', precision: 5, scale: 2 })
   fromY: number;
 
   // Métadonnées
-  @Column({ type: 'enum', enum: SIDE, default: SIDE.BOTH })
+  @Column({ type: 'enum', enum: SIDE, default: SIDE.ANY })
   @Index()
   side: SIDE;
 

@@ -15,6 +15,7 @@ export const actionDtoSchema = z.object({
       label: z.string(),
       x: z.number(),
       y: z.number(),
+      iconUrl: z.string(),
     })
     .optional(),
   side: z.enum(SIDE),
@@ -45,6 +46,7 @@ export const toActionsDto = (action: Action): ActionDto => {
       label: action.destinationPoint.label,
       x: Number(action.destinationPoint.x),
       y: Number(action.destinationPoint.y),
+      iconUrl: action.destinationPoint.iconUrl,
     },
     side: action.side,
     imageUrl: action.imageUrl,
