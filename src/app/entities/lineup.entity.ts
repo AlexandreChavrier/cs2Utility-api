@@ -41,6 +41,9 @@ export class Lineup {
   @Column({ name: 'throw_from_y', type: 'decimal', precision: 5, scale: 2 })
   throwFromY: number;
 
+  @Column({ name: 'icon_url', nullable: true })
+  iconUrl: string;
+
   // Métadonnées
   @Column({ type: 'enum', enum: SIDE, default: SIDE.ANY })
   @Index()
