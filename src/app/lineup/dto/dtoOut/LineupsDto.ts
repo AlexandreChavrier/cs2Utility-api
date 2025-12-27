@@ -15,6 +15,15 @@ export const lineupDtoSchema = z.object({
     y: z.number(),
     iconUrl: z.string(),
   }),
+  intermediatePoints: z
+    .array(
+      z.object({
+        x: z.number(),
+        y: z.number(),
+        order: z.number(),
+      }),
+    )
+    .optional(),
   side: z.enum(SIDE),
   iconUrl: z.string(),
   imageUrl: z.string(),
@@ -46,6 +55,12 @@ export const toLineupsDto = (lineup: Lineup): LineupDto => {
       y: Number(lineup.destinationPoint.y),
       iconUrl: lineup.destinationPoint.iconUrl,
     },
+    intermediatePoints:
+      lineup.intermediatePoints?.map((point) => ({
+        x: Number(point.x),
+        y: Number(point.y),
+        order: Number(point.order),
+      })) ?? [],
     side: lineup.side,
     iconUrl: lineup.iconUrl,
     imageUrl: lineup.imageUrl,
