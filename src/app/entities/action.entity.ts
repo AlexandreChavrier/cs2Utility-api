@@ -59,10 +59,6 @@ export class Action {
   @Column({ type: 'text' })
   instructions: string;
 
-  // Social
-  @Column({ name: 'created_by', nullable: true })
-  createdBy?: string;
-
   @Column({ default: 0 })
   votes: number;
 

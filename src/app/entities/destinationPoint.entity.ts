@@ -12,6 +12,7 @@ import {
 } from 'typeorm';
 import { Map } from './map.entity';
 import { Lineup } from './lineup.entity';
+import { Action } from './action.entity';
 
 @Entity('destination_points')
 export class DestinationPoint {
@@ -55,5 +56,6 @@ export class DestinationPoint {
   @OneToMany(() => Lineup, (lineup) => lineup.destinationPoint)
   lineups: Lineup[];
 
-  // Manque la relaton vers actions
+  @OneToMany(() => Action, (action) => action.destinationPoint)
+  actions: Action[];
 }

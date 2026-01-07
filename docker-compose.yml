@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: cs2utility-dev
       POSTGRES_DB: cs2utility-api-dev
     ports:
-      - '5435:5432'
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init-scripts:/docker-entrypoint-initdb.d

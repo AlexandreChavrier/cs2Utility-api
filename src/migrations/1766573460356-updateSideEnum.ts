@@ -77,9 +77,18 @@ export class UpdateSideEnum1766573460356 implements MigrationInterface {
     );
 
     // Remettre la FK
-    await queryRunner.query(
-      `ALTER TABLE "actions" ADD CONSTRAINT "FK_b409ef7c503c9a88eca262a4e12" FOREIGN KEY ("action_type_id") REFERENCES "action_types"("id") ON DELETE CASCADE ON UPDATE NO ACTION`,
-    );
+    await queryRunner.query(`
+      DO $$ 
+      BEGIN
+        IF NOT EXISTS (
+          SELECT 1 FROM pg_constraint WHERE conname = 'FK_b409ef7c503c9a88eca262a4e12'
+        ) THEN
+          ALTER TABLE "actions" ADD CONSTRAINT "FK_b409ef7c503c9a88eca262a4e12" 
+          FOREIGN KEY ("action_type_id") REFERENCES "action_types"("id") 
+          ON DELETE CASCADE ON UPDATE NO ACTION;
+        END IF;
+      END $$;
+    `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
