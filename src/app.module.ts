@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { getDatabaseConfig } from './config/database.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './app/user/user.module';
 import { AuthModule } from './app/auth/auth.module';
@@ -8,6 +7,7 @@ import { LineupModule } from './app/lineup/lineup.module';
 import { MapModule } from './app/map/map.module';
 import { ActionModule } from './app/action/actions.module';
 import { ActionTypeModule } from './app/action-type/actionsType.module';
+import { getAppDatabaseConfig } from './config/database.config';
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import { ActionTypeModule } from './app/action-type/actionsType.module';
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: getDatabaseConfig,
+      useFactory: getAppDatabaseConfig,
       inject: [ConfigService],
     }),
     AuthModule,

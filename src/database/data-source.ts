@@ -8,7 +8,7 @@ config();
 const configService = new ConfigService();
 
 // Fonction pour parser DATABASE_URL ou utiliser les variables séparées
-function getDatabaseConfig() {
+function getCliDatabaseConfig() {
   const databaseUrl = configService.get<string>('DATABASE_URL');
 
   if (databaseUrl) {
@@ -34,7 +34,7 @@ function getDatabaseConfig() {
 }
 
 export const AppDataSource = new DataSource({
-  ...getDatabaseConfig(),
+  ...getCliDatabaseConfig(),
   entities: ['src/**/*.entity{.ts,.js}'],
   migrations: ['src/migrations/*.ts'],
   synchronize: false,
