@@ -148,7 +148,7 @@ export class AuthController {
     response.cookie('access_token', accessToken, {
       httpOnly: true,
       secure: isProduction,
-      sameSite: 'lax',
+      sameSite: isProduction ? ('none' as const) : ('lax' as const),
       maxAge: this.configService.get<number>('COOKIE_ACCESS_MAX_AGE'),
       path: '/',
     });
@@ -156,7 +156,7 @@ export class AuthController {
     response.cookie('refresh_token', refreshToken, {
       httpOnly: true,
       secure: isProduction,
-      sameSite: 'lax',
+      sameSite: isProduction ? ('none' as const) : ('lax' as const),
       maxAge: this.configService.get<number>('COOKIE_REFRESH_MAX_AGE'),
       path: '/',
     });
