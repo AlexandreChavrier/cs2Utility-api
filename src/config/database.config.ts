@@ -6,25 +6,8 @@ export const getAppDatabaseConfig = (
 ): TypeOrmModuleOptions => {
   const databaseUrl = configService.get<string>('DATABASE_URL');
 
-  // 🔍 LOGS DE DEBUG CRITIQUES
-  console.log('==========================================');
-  console.log('🔗 DATABASE_URL présente ?', !!databaseUrl);
-
   if (databaseUrl) {
-    const maskedUrl = databaseUrl.replace(/:([^@]+)@/, ':****@');
-    console.log('🔗 DATABASE_URL (masqué):', maskedUrl);
-
-    // Parse l'URL pour voir les détails
-    try {
-      const url = new URL(databaseUrl.replace('postgresql://', 'http://'));
-      console.log('📍 Hostname:', url.hostname);
-      console.log('📍 Database:', url.pathname.substring(1).split('?')[0]);
-      console.log('📍 Search params:', url.search);
-    } catch (e) {
-      console.log('❌ Erreur parsing URL');
-    }
-    console.log('==========================================');
-
+    // Production : utilise DATABASE_URL
     return {
       type: 'postgres',
       url: databaseUrl,
@@ -33,13 +16,12 @@ export const getAppDatabaseConfig = (
       },
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       synchronize: false,
-      logging: ['query', 'error'], // ← Active TOUS les logs SQL
+      logging: ['error'],
       autoLoadEntities: true,
     };
   }
 
-  console.log('⚠️ Using separate DB variables (FALLBACK)');
-  console.log('==========================================');
+  // Dev local : utilise les variables séparées
   return {
     type: 'postgres',
     host: configService.get<string>('DB_HOST', 'localhost'),
@@ -49,7 +31,7 @@ export const getAppDatabaseConfig = (
     database: configService.get<string>('DB_DATABASE', 'cs2utility-api-dev'),
     entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     synchronize: false,
-    logging: ['query', 'error'],
+    logging: ['error'],
     autoLoadEntities: true,
   };
 };

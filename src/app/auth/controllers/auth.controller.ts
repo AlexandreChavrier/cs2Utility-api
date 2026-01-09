@@ -149,7 +149,7 @@ export class AuthController {
       httpOnly: true,
       secure: isProduction,
       sameSite: 'lax',
-      maxAge: this.configService.get<number>('JWT_ACCESS_EXPIRATION'),
+      maxAge: this.configService.get<number>('COOKIE_ACCESS_MAX_AGE'),
       path: '/',
     });
 
@@ -157,7 +157,7 @@ export class AuthController {
       httpOnly: true,
       secure: isProduction,
       sameSite: 'lax',
-      maxAge: this.configService.get<number>('JWT_REFRESH_EXPIRATION'),
+      maxAge: this.configService.get<number>('COOKIE_REFRESH_MAX_AGE'),
       path: '/',
     });
   }
