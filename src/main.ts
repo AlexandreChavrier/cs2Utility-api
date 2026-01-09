@@ -33,7 +33,7 @@ async function bootstrap() {
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
-  const port = configService.get<number>('PORT', 3001);
+  const port = configService.get<number>('PORT', 4000);
   await app.listen(port);
 
   console.log(`🚀 Application running on: http://localhost:${port}`);
